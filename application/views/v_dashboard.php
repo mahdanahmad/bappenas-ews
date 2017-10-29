@@ -142,7 +142,8 @@
           <h4>Perbandingan Analisis Sentimen Harga Gas LPG dengan Tingkat Inflasi</h3>
           <p>Visualisasi perbandingan hasil analisis sentimen terkait harga gas LPG dari perbincangan publik via Twitter dengan fluktuasi inflasi di Indonesia</p>
           <p style="font-size:80%">R = 0.493 - Correlation of Determination = 0.2394</p>
-          <div id="firstvis" style="height: 60vh; min-width: 310px"></div>
+          <div id="firstvis" style="height: 60vh; min-width: 310px; margin-bottom: 100px; "></div>
+          <div id="secondvis" style="height: 60vh; min-width: 310px"></div>
         </div>
       </div>
     </header>
@@ -315,12 +316,16 @@
      .highcharts-scrollbar-track{
       fill: transparent !important;
      }
+     header.masthead {
+         height: 175%;
+     }
     </style>
     <script type="text/javascript">
 
-      var seriesOptions = [],
-          seriesCounter = 0,
-          names = ['MSFT', 'AAPL', 'GOOG'];
+    var seriesOptions = [],
+        secondOptions = [],
+        seriesCounter = 0,
+        names = ['MSFT', 'AAPL', 'GOOG'];
 
       /**
        * Create the chart when all data is loaded
@@ -470,6 +475,87 @@
               },
 
               series: seriesOptions
+          });
+
+          Highcharts.stockChart('secondvis', {
+
+              rangeSelector: {
+                  selected: 4
+              },
+
+              chart: {
+                     backgroundColor:'rgba(255, 255, 255, 0.0)'
+              },
+
+              yAxis: [{ // Primary yAxis
+                  labels: {
+                      format: '{value}',
+                      style: {
+                          color: Highcharts.getOptions().colors[2]
+                      }
+                  },
+                  title: {
+                      text: 'Inflasi',
+                      style: {
+                          color: Highcharts.getOptions().colors[2]
+                      }
+                  },
+                  max: 40,
+                  opposite: true
+
+              }, { // Secondary yAxis
+                  labels: {
+                      format: '{value}',
+                      style: {
+                          color: Highcharts.getOptions().colors[0]
+                      }
+                  },
+                  title: {
+                      text: 'Volume',
+                      style: {
+                          color: Highcharts.getOptions().colors[0]
+                      }
+                  },
+                  opposite: false
+            //   }, { // Tertiary yAxis
+            //        title: {
+            //            text: 'Harga Daging & Telur Ayam',
+            //            style: {
+            //                color: Highcharts.getOptions().colors[1]
+            //            }
+            //        },
+            //        labels: {
+            //            format: '{value}',
+            //            style: {
+            //                color: Highcharts.getOptions().colors[1]
+            //            }
+            //        },
+            //        max: 100000,
+            //        opposite: true
+
+              }],
+
+              legend: {
+                  layout: 'vertical',
+                  align: 'right',
+                  verticalAlign: 'middle'
+              },
+
+              tooltip: {
+                  pointFormat: '<span style="color:{series.color}">{series.name}</span>: <b style="color:#555">{point.y}</b>',
+                  valueDecimals: 2,
+                  split: true
+              },
+              credits: {
+                  enabled: false
+              },
+              plotOptions: {
+                  series: {
+                      stacking: 'normal'
+                  }
+              },
+
+              series: secondOptions
           });
       }
 
@@ -732,6 +818,11 @@
         var dagingayam = [];
         var telurayam = [];
 
+        var volumeberas = [];
+        var volumedaging = [];
+        var volumelpg = [];
+        var volumetelur = [];
+
         data.forEach(function(cs){
           inti.push([parseInt(cs.Analysis_Date),parseFloat(cs.Inti)]);
           bergejolak.push([parseInt(cs.Analysis_Date),parseFloat(cs.Bergejolak)]);
@@ -743,26 +834,31 @@
           negativesentimen.push([parseInt(cs.Analysis_Date),parseFloat(cs.Negative_value)]);
           dagingayam.push([parseInt(cs.Analysis_Date),parseFloat(cs.dagingayam)]);
           telurayam.push([parseInt(cs.Analysis_Date),parseFloat(cs.telurayam)]);
+
+          volumeberas.push([parseInt(cs.Analysis_Date),parseFloat(cs.volumeberas)]);
+          volumedaging.push([parseInt(cs.Analysis_Date),parseFloat(cs.volumedaging)]);
+          volumelpg.push([parseInt(cs.Analysis_Date),parseFloat(cs.volumelpg)]);
+          volumetelur.push([parseInt(cs.Analysis_Date),parseFloat(cs.volumetelur)]);
         })
         seriesOptions = [
-          {
+        {
             type: 'areaspline',
-            name: 'Sentimen Baik',
+            name: 'Volume ',
             yAxis: 1,
             data: goodsentimen,
-          },
-          {
+        },
+        {
             type: 'areaspline',
             name: 'Sentimen Netral',
             yAxis: 1,
             data: neutralsentimen,
-          },
-          {
+        },
+        {
             type: 'areaspline',
             name: 'Sentimen Buruk',
             yAxis: 1,
             data: negativesentimen,
-          },
+        },
         //   {
         //     type: 'spline',
         //     name: 'Inflasi',
@@ -817,6 +913,74 @@
             data: telurayam,
             yAxis: 2,
             // dashStyle: 'ShortDash'
+          },
+        ];
+
+        secondOptions = [
+        {
+            type: 'area',
+            name: 'Volume Beras',
+            yAxis: 1,
+            data: volumeberas,
+        },
+        {
+            type: 'area',
+            name: 'Volume Daging Ayam',
+            yAxis: 1,
+            data: volumedaging,
+        },
+        {
+            type: 'area',
+            name: 'Volume LPG',
+            yAxis: 1,
+            data: volumelpg,
+        },
+        {
+            type: 'area',
+            name: 'Volume Telur Ayam',
+            yAxis: 1,
+            data: volumetelur,
+        },
+          {
+            type: 'spline',
+            name: 'Inflasi',
+            data: inflasi,
+            yAxis: 0,
+            dashStyle: 'ShortDash',
+            lineWidth: 3
+            // fillColor: {
+            //     linearGradient: {
+            //         x1: 0,
+            //         y1: 0,
+            //         x2: 0,
+            //         y2: 1
+            //     },
+            //     stops: [
+            //         [0, '#ab7efa'],
+            //         [1, 'rgba(255, 255, 255, 0.0)']
+            //     ]
+            // }
+          },
+          {
+            type: 'spline',
+            name: 'Inflasi Inti',
+            data: inti,
+            yAxis: 0,
+            dashStyle: 'ShortDash'
+          },
+          {
+            type: 'spline',
+            name: 'inflasi Bergejolak',
+            data: bergejolak,
+            yAxis: 0,
+            dashStyle: 'ShortDash'
+          },
+          {
+            type: 'spline',
+            name: 'inflasi Diatur',
+            data: diatur,
+            yAxis: 0,
+            dashStyle: 'ShortDash'
           },
         ];
         //console.log(seriesOptions);
