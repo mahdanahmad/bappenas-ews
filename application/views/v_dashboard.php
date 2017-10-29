@@ -549,11 +549,11 @@
               credits: {
                   enabled: false
               },
-              plotOptions: {
-                  series: {
-                      stacking: 'normal'
-                  }
-              },
+            //   plotOptions: {
+            //       series: {
+            //           stacking: 'normal'
+            //       }
+            //   },
 
               series: secondOptions
           });
@@ -918,25 +918,25 @@
 
         secondOptions = [
         {
-            type: 'area',
+            type: 'areaspline',
             name: 'Volume Beras',
             yAxis: 1,
             data: volumeberas,
         },
         {
-            type: 'area',
+            type: 'areaspline',
             name: 'Volume Daging Ayam',
             yAxis: 1,
             data: volumedaging,
         },
         {
-            type: 'area',
+            type: 'areaspline',
             name: 'Volume LPG',
             yAxis: 1,
             data: volumelpg,
         },
         {
-            type: 'area',
+            type: 'areaspline',
             name: 'Volume Telur Ayam',
             yAxis: 1,
             data: volumetelur,
