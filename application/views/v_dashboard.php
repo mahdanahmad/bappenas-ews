@@ -549,11 +549,11 @@
               credits: {
                   enabled: false
               },
-            //   plotOptions: {
-            //       series: {
-            //           stacking: 'normal'
-            //       }
-            //   },
+              plotOptions: {
+                  series: {
+                      stacking: 'normal'
+                  }
+              },
 
               series: secondOptions
           });
