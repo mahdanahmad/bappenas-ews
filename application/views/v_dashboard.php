@@ -143,6 +143,7 @@
           <p>Visualisasi perbandingan hasil analisis sentimen terkait harga gas LPG dari perbincangan publik via Twitter dengan fluktuasi inflasi di Indonesia</p>
           <p style="font-size:80%">R = 0.493 - Correlation of Determination = 0.2394</p>
           <div id="firstvis" style="height: 60vh; min-width: 310px; margin-bottom: 100px; "></div>
+          <p style="font-size:80%">Telur: 0.340, Daging: 0.434, LPG: 0.510, Beras: 0.561, Gabungan: 0.730</p>
           <div id="secondvis" style="height: 60vh; min-width: 310px"></div>
         </div>
       </div>
@@ -419,7 +420,7 @@
                           color: Highcharts.getOptions().colors[2]
                       }
                   },
-                  max: 40,
+                //   max: 40,
                   opposite: true
 
               }, { // Secondary yAxis
@@ -435,6 +436,7 @@
                           color: Highcharts.getOptions().colors[0]
                       }
                   },
+                //   max:40000,
                   opposite: false
               }, { // Tertiary yAxis
                    title: {
@@ -449,7 +451,7 @@
                            color: Highcharts.getOptions().colors[1]
                        }
                    },
-                   max: 100000,
+                //    max: 100000,
                    opposite: true
 
               }],
@@ -500,7 +502,7 @@
                           color: Highcharts.getOptions().colors[2]
                       }
                   },
-                  max: 40,
+                  max: 25,
                   opposite: true
 
               }, { // Secondary yAxis
@@ -516,6 +518,7 @@
                           color: Highcharts.getOptions().colors[0]
                       }
                   },
+                  max: 50000,
                   opposite: false
             //   }, { // Tertiary yAxis
             //        title: {
@@ -823,7 +826,7 @@
         var volumelpg = [];
         var volumetelur = [];
 
-        data.forEach(function(cs){
+        data.forEach(function(cs, i){
           inti.push([parseInt(cs.Analysis_Date),parseFloat(cs.Inti)]);
           bergejolak.push([parseInt(cs.Analysis_Date),parseFloat(cs.Bergejolak)]);
           diatur.push([parseInt(cs.Analysis_Date),parseFloat(cs.Diatur_pemerintah)]);
@@ -835,10 +838,13 @@
           dagingayam.push([parseInt(cs.Analysis_Date),parseFloat(cs.dagingayam)]);
           telurayam.push([parseInt(cs.Analysis_Date),parseFloat(cs.telurayam)]);
 
-          volumeberas.push([parseInt(cs.Analysis_Date),parseFloat(cs.volumeberas)]);
-          volumedaging.push([parseInt(cs.Analysis_Date),parseFloat(cs.volumedaging)]);
-          volumelpg.push([parseInt(cs.Analysis_Date),parseFloat(cs.volumelpg)]);
-          volumetelur.push([parseInt(cs.Analysis_Date),parseFloat(cs.volumetelur)]);
+          if (i > 2) {
+              volumeberas.push([parseInt(cs.Analysis_Date),parseFloat(cs.volumeberas)]);
+              volumedaging.push([parseInt(cs.Analysis_Date),parseFloat(cs.volumedaging)]);
+              volumelpg.push([parseInt(cs.Analysis_Date),parseFloat(cs.volumelpg)]);
+              volumetelur.push([parseInt(cs.Analysis_Date),parseFloat(cs.volumetelur)]);
+          }
+
         })
         seriesOptions = [
         {
@@ -941,33 +947,33 @@
             yAxis: 1,
             data: volumetelur,
         },
-          {
-            type: 'spline',
-            name: 'Inflasi',
-            data: inflasi,
-            yAxis: 0,
-            dashStyle: 'ShortDash',
-            lineWidth: 3
-            // fillColor: {
-            //     linearGradient: {
-            //         x1: 0,
-            //         y1: 0,
-            //         x2: 0,
-            //         y2: 1
-            //     },
-            //     stops: [
-            //         [0, '#ab7efa'],
-            //         [1, 'rgba(255, 255, 255, 0.0)']
-            //     ]
-            // }
-          },
-          {
-            type: 'spline',
-            name: 'Inflasi Inti',
-            data: inti,
-            yAxis: 0,
-            dashStyle: 'ShortDash'
-          },
+        //   {
+        //     type: 'spline',
+        //     name: 'Inflasi',
+        //     data: inflasi,
+        //     yAxis: 0,
+        //     dashStyle: 'ShortDash',
+        //     lineWidth: 3
+        //     // fillColor: {
+        //     //     linearGradient: {
+        //     //         x1: 0,
+        //     //         y1: 0,
+        //     //         x2: 0,
+        //     //         y2: 1
+        //     //     },
+        //     //     stops: [
+        //     //         [0, '#ab7efa'],
+        //     //         [1, 'rgba(255, 255, 255, 0.0)']
+        //     //     ]
+        //     // }
+        //   },
+        //   {
+        //     type: 'spline',
+        //     name: 'Inflasi Inti',
+        //     data: inti,
+        //     yAxis: 0,
+        //     dashStyle: 'ShortDash'
+        //   },
           {
             type: 'spline',
             name: 'inflasi Bergejolak',
