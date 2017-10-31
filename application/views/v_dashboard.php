@@ -110,6 +110,18 @@
     td{
       padding-top: 5px;
     }
+    ul.navbar-nav > li {
+        color: white; cursor: pointer; padding: 2.5px 10px; margin: 0px 5px;
+    }
+    ul.navbar-nav > li.active {
+        border-bottom: 2px solid; background: transparent; border-radius: 5px;
+    }
+    .navbar-shrink ul.navbar-nav > li {
+        color: black;
+    }
+    .secondvis-wrapper {
+        display: none;
+    }
     </style>
   </head>
 
@@ -126,7 +138,8 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
           <ul class="navbar-nav ml-auto">
-            <font color="#626364">Inflasi dan sentimen analisis</font>
+            <li class="active">Analisis LPG</li>
+            <li>Analisis Komoditas</li>
             <!-- <li class="nav-item">
               <a class="nav-link js-scroll-trigger" href="#about">About</a>
             </li> -->
@@ -139,12 +152,18 @@
       <div class="header-content">
         <div class="header-content-inner">
           <!-- <h2 id="homeHeading">Perbandingan Analisis Sentimen Harga Gas LPG dengan Tingkat Inflasi</h1> -->
-          <h4>Perbandingan Analisis Sentimen Harga Gas LPG dengan Tingkat Inflasi</h3>
-          <p>Visualisasi perbandingan hasil analisis sentimen terkait harga gas LPG dari perbincangan publik via Twitter dengan fluktuasi inflasi di Indonesia</p>
-          <p style="font-size:80%">R = 0.493 - Correlation of Determination = 0.2394</p>
-          <div id="firstvis" style="height: 60vh; min-width: 310px; margin-bottom: 100px; "></div>
-          <p style="font-size:80%">Telur: 0.340, Daging: 0.434, LPG: 0.510, Beras: 0.561, Gabungan: 0.730</p>
-          <div id="secondvis" style="height: 60vh; min-width: 310px"></div>
+          <div class="firstvis-wrapper">
+              <h4>Perbandingan Analisis Sentimen Harga Gas LPG dengan Tingkat Inflasi</h4>
+              <p>Visualisasi perbandingan hasil analisis sentimen terkait harga gas LPG dari perbincangan publik via Twitter dengan fluktuasi inflasi di Indonesia</p>
+              <p style="font-size:80%">R = 0.493 - Correlation of Determination = 0.2394</p>
+              <div id="firstvis" style="height: 60vh; min-width: 310px;"></div>
+          </div>
+          <div class="secondvis-wrapper" style="display:none;">
+              <h4>Perbandingan Analisis Sentimen Harga Gas LPG dengan Tingkat Inflasi</h4>
+              <p>Visualisasi perbandingan hasil analisis sentimen terkait harga gas LPG dari perbincangan publik via Twitter dengan fluktuasi inflasi di Indonesia</p>
+              <p style="font-size:80%">Telur: 0.340, Daging: 0.434, LPG: 0.510, Beras: 0.561, Gabungan: 0.730</p>
+              <div id="secondvis" style="height: 60vh; min-width: 310px"></div>
+          </div>
         </div>
       </div>
     </header>
@@ -158,12 +177,6 @@
             <div class="buttonyear" id="y2016">2016</div>
             <div class="buttonyear" id="y2015">2015</div>
           </div>
-
-
-
-
-
-
         </div>
       </div>
     </section>
@@ -187,7 +200,7 @@
                     </div>
                 </td>
               </tr>
-              <tr>
+              <tr class="firstvis-wrapper">
                 <td style="color: #82ca27">Sentimen Baik</td>
                 <td class="thvalue" id="m0_4">545</td>
                 <td style="padding-left: 10px;">
@@ -197,7 +210,7 @@
                     </div>
                 </td>
               </tr>
-              <tr>
+              <tr class="firstvis-wrapper">
                 <td style="color: #26c3ca">Sentimen Netral</td>
                 <td class="thvalue" id="m0_6">545</td>
                 <td style="padding-left: 10px;">
@@ -207,7 +220,7 @@
                     </div>
                 </td>
               </tr>
-              <tr>
+              <tr class="firstvis-wrapper">
                 <td style="color: #ff7272">Sentimen Buruk</td>
                 <td class="thvalue" id="m0_8">545</td>
                 <td style="padding-left: 10px;">
@@ -217,11 +230,51 @@
                     </div>
                 </td>
               </tr>
-              <tr>
+              <tr class="firstvis-wrapper">
                 <td style="color: #fff">Volume Sentimen</td>
                 <td class="thvalue" id="m0_10">545</td>
                 <td style="padding-left: 10px;">
                     <div class="info" id="m0_11">
+                      <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                      Turun <b>25%</b>  ( <b>5</b> point )
+                    </div>
+                </td>
+              </tr>
+              <tr class="secondvis-wrapper">
+                <td style="color: #82ca27">Volume Beras</td>
+                <td class="thvalue" id="m0_21">545</td>
+                <td style="padding-left: 10px;">
+                    <div class="info" id="m0_22">
+                      <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                      Turun <b>25%</b>  ( <b>5</b> point )
+                    </div>
+                </td>
+              </tr>
+              <tr class="secondvis-wrapper">
+                <td style="color: #26c3ca">Volume Daging</td>
+                <td class="thvalue" id="m0_23">545</td>
+                <td style="padding-left: 10px;">
+                    <div class="info" id="m0_24">
+                      <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                      Turun <b>25%</b>  ( <b>5</b> point )
+                    </div>
+                </td>
+              </tr>
+              <tr class="secondvis-wrapper">
+                <td style="color: #ff7272">Volume LPG</td>
+                <td class="thvalue" id="m0_25">545</td>
+                <td style="padding-left: 10px;">
+                    <div class="info" id="m0_26">
+                      <i class="fa fa-arrow-down" aria-hidden="true"></i>
+                      Turun <b>25%</b>  ( <b>5</b> point )
+                    </div>
+                </td>
+              </tr>
+              <tr class="secondvis-wrapper">
+                <td style="color: #fff">Volume Telur</td>
+                <td class="thvalue" id="m0_27">545</td>
+                <td style="padding-left: 10px;">
+                    <div class="info" id="m0_28">
                       <i class="fa fa-arrow-down" aria-hidden="true"></i>
                       Turun <b>25%</b>  ( <b>5</b> point )
                     </div>
@@ -317,9 +370,6 @@
      .highcharts-scrollbar-track{
       fill: transparent !important;
      }
-     header.masthead {
-         height: 175%;
-     }
     </style>
     <script type="text/javascript">
 
@@ -394,8 +444,6 @@
 
           // Apply the theme
           Highcharts.setOptions(Highcharts.theme);
-
-
 
           Highcharts.stockChart('firstvis', {
 
@@ -602,11 +650,21 @@
           $('#tb'+i+' #m0_14').attr('id','m'+i+'_14');
           $('#tb'+i+' #m0_15').attr('id','m'+i+'_15');
           $('#tb'+i+' #m0_16').attr('id','m'+i+'_16');
-          $('#tb'+i+' #m0_17').attr('id','m'+i+'_17');
+
+          $('#tb'+i+' #m0_21').attr('id','m'+i+'_21');
+          $('#tb'+i+' #m0_22').attr('id','m'+i+'_22');
+          $('#tb'+i+' #m0_23').attr('id','m'+i+'_23');
+          $('#tb'+i+' #m0_24').attr('id','m'+i+'_24');
+          $('#tb'+i+' #m0_25').attr('id','m'+i+'_25');
+          $('#tb'+i+' #m0_26').attr('id','m'+i+'_26');
+          $('#tb'+i+' #m0_27').attr('id','m'+i+'_27');
+          $('#tb'+i+' #m0_28').attr('id','m'+i+'_28');
+
           $('#m'+i+'_1').html(month[getmonth] +' - '+ tahun );
 
           // console.log(data.Inflasi);
 
+        //   console.log(dataforeach);
 
           $('#m'+i+'_2').html(dataforeach.Inflasi);
           $('#m'+i+'_4').html(dataforeach.Positive_value);
@@ -616,6 +674,11 @@
           $('#m'+i+'_12').html(dataforeach.Inti);
           $('#m'+i+'_14').html(dataforeach.Bergejolak);
           $('#m'+i+'_16').html(dataforeach.Diatur_pemerintah);
+
+          $('#m'+i+'_21').html(dataforeach.volumeberas);
+          $('#m'+i+'_23').html(dataforeach.volumedaging);
+          $('#m'+i+'_25').html(dataforeach.volumelpg);
+          $('#m'+i+'_27').html(dataforeach.volumetelur);
 
 
           if(i>1){
@@ -788,6 +851,78 @@
             }
             $('#m'+i+'_17').html(text17);
 
+            var val221 = data[i-2];
+            var val222 = data[i-1];
+            var getdif22 = val221.volumeberas - val222.volumeberas;
+            var text22 = '';
+            if(getdif22 > 0){
+                var percent = getdif22 / val221.volumeberas * 100 ;
+                text22 = '<i class="fa fa-arrow-down" aria-hidden="true"></i>&nbsp;Turun &nbsp; '+ (getdif22);
+                $('#m'+i+'_22').addClass('turun');
+            }else if(getdif22 < 0){
+                getdif22 = getdif22 * -1;
+                var percent = getdif22 / val221.volumeberas * 100 ;
+                text22 = '<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;Naik &nbsp; '+ (getdif22);
+                $('#m'+i+'_22').addClass('naik');
+            }else{
+                text22 == '-';
+            }
+            $('#m'+i+'_22').html(text22);
+
+            var val241 = data[i-2];
+            var val242 = data[i-1];
+            var getdif24 = val241.volumedaging - val242.volumedaging;
+            var text24 = '';
+            if(getdif24 > 0){
+                var percent = getdif24 / val241.volumedaging * 100 ;
+                text24 = '<i class="fa fa-arrow-down" aria-hidden="true"></i>&nbsp;Turun &nbsp; '+ (getdif24);
+                $('#m'+i+'_24').addClass('turun');
+            }else if(getdif24 < 0){
+                getdif24 = getdif24 * -1;
+                var percent = getdif24 / val241.volumedaging * 100 ;
+                text24 = '<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;Naik &nbsp; '+ (getdif24);
+                $('#m'+i+'_24').addClass('naik');
+            }else{
+                text24 == '-';
+            }
+            $('#m'+i+'_24').html(text24);
+
+            var val261 = data[i-2];
+            var val262 = data[i-1];
+            var getdif26 = val261.volumelpg - val262.volumelpg;
+            var text26 = '';
+            if(getdif26 > 0){
+                var percent = getdif26 / val261.volumelpg * 100 ;
+                text26 = '<i class="fa fa-arrow-down" aria-hidden="true"></i>&nbsp;Turun &nbsp; '+ (getdif26);
+                $('#m'+i+'_26').addClass('turun');
+            }else if(getdif26 < 0){
+                getdif26 = getdif26 * -1;
+                var percent = getdif26 / val261.volumelpg * 100 ;
+                text26 = '<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;Naik &nbsp; '+ (getdif26);
+                $('#m'+i+'_26').addClass('naik');
+            }else{
+                text26 == '-';
+            }
+            $('#m'+i+'_26').html(text26);
+
+            var val281 = data[i-2];
+            var val282 = data[i-1];
+            var getdif28 = val281.volumetelur - val282.volumetelur;
+            var text28 = '';
+            if(getdif28 > 0){
+                var percent = getdif28 / val281.volumetelur * 100 ;
+                text28 = '<i class="fa fa-arrow-down" aria-hidden="true"></i>&nbsp;Turun &nbsp; '+ (getdif28);
+                $('#m'+i+'_28').addClass('turun');
+            }else if(getdif28 < 0){
+                getdif28 = getdif28 * -1;
+                var percent = getdif28 / val281.volumetelur * 100 ;
+                text28 = '<i class="fa fa-arrow-up" aria-hidden="true"></i>&nbsp;Naik &nbsp; '+ (getdif28);
+                $('#m'+i+'_28').addClass('naik');
+            }else{
+                text28 == '-';
+            }
+            $('#m'+i+'_28').html(text28);
+
 
           }else{
             $('#m'+i+'_3').html('');
@@ -806,7 +941,9 @@
 
       }
 
+      function drawanotherbox(data) {
 
+      }
 
       d3.csv('<?PHP echo base_url()?>assets/data/real.csv',function(data){
         //console.log(data);
@@ -992,67 +1129,24 @@
         //console.log(seriesOptions);
 
         createChart();
-
-
         drawabox(data);
+        drawanotherbox(data);
 
 
       })
 
+      $(' ul.navbar-nav li ').click(function() {
+          if ($( this ).text() == 'Analisis LPG') {
+              $(' .firstvis-wrapper ').show();
+              $(' .secondvis-wrapper ').hide();
+          } else {
+              $(' .firstvis-wrapper ').hide();
+              $(' .secondvis-wrapper ').show();
+          }
 
-
-
-      // for(var i =1;i<=12;i++){
-      //     // graphbox
-      //   var chart = c3.generate({
-      //       bindto: '#graphbox'+i,
-      //       data: {
-      //           columns: [
-      //               ['data1', 30],
-      //               ['data2', 130]
-      //           ],
-      //           type: 'bar',
-      //           axes: {
-      //               data1: 'y',
-      //               data2: 'y2'
-      //           },
-      //           labels: true
-      //       },
-      //       color: {
-      //         pattern: ['#ab7efa', '#fccc00',]
-      //       },
-      //       bar: {
-      //           width: {
-      //               ratio: 0.5 // this makes bar width 50% of length between ticks
-      //           }
-      //           // or
-      //           //width: 100 // this makes bar width 100px
-      //       },
-      //       tooltip: {
-      //         show: false
-      //       },
-      //       axis: {
-      //         x: {
-      //           show: false
-      //         },
-      //         y: {
-      //           show: false,
-      //           max: 40
-      //         },
-      //         y2:{
-      //           show:false,
-      //           max: 200
-      //         }
-
-      //       },
-      //       legend: {
-      //         show: false
-      //       }
-
-      //   });
-      //}
-
-
+          $(' ul.navbar-nav > li ').removeClass('active');
+          $( this ).addClass('active');
+      })
 
 
     </script>
