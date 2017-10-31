@@ -159,8 +159,8 @@
               <div id="firstvis" style="height: 60vh; min-width: 310px;"></div>
           </div>
           <div class="secondvis-wrapper" style="display:none;">
-              <h4>Perbandingan Analisis Sentimen Harga Gas LPG dengan Tingkat Inflasi</h4>
-              <p>Visualisasi perbandingan hasil analisis sentimen terkait harga gas LPG dari perbincangan publik via Twitter dengan fluktuasi inflasi di Indonesia</p>
+              <h4>Perbandingan Volume Perbincangan Sektor Bahan Pangan dengan Tingkat Inflasi</h4>
+              <p>Visualisasi perbandingan hasil analisis volume perbincangan beberapa komoditi sektor bahan pangan dengan fluktuasi inflasi di Indonesia</p>
               <p style="font-size:80%">Telur: 0.340, Daging: 0.434, LPG: 0.510, Beras: 0.561, Gabungan: 0.730</p>
               <div id="secondvis" style="height: 60vh; min-width: 310px"></div>
           </div>
@@ -172,7 +172,7 @@
       <div class="container">
         <div class="row" id="allbox">
           <div class="col-lg-10 mx-auto text-center">
-            <p class="text-faded">Analisis Sentimen harga gas LPG dan TIngkat Inflasi Perbulan</p>
+            <p class="text-faded">Analisis <span id="box-title">Sentimen harga gas LPG</span> dan Tingkat Inflasi per Bulan</p>
             <div class="buttonyear active" id="y2017">2017</div>
             <div class="buttonyear" id="y2016">2016</div>
             <div class="buttonyear" id="y2015">2015</div>
@@ -1139,9 +1139,13 @@
           if ($( this ).text() == 'Analisis LPG') {
               $(' .firstvis-wrapper ').show();
               $(' .secondvis-wrapper ').hide();
+
+              $(' #box-title ').html('Sentimen harga gas LPG')
           } else {
               $(' .firstvis-wrapper ').hide();
               $(' .secondvis-wrapper ').show();
+
+              $(' #box-title ').html('Perbincangan Komoditi Bahan Pangan')
           }
 
           $(' ul.navbar-nav > li ').removeClass('active');
