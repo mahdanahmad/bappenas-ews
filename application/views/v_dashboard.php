@@ -111,7 +111,7 @@
       padding-top: 5px;
     }
     ul.navbar-nav > li {
-        color: white; cursor: pointer; padding: 2.5px 10px; margin: 0px 5px;
+        color: white; cursor: pointer; padding: 2.5px 10px; margin: 0px 5px; font-size: 14px;
     }
     ul.navbar-nav > li.active {
         border-bottom: 2px solid; background: transparent; border-radius: 5px;
@@ -151,18 +151,18 @@
     <header class="masthead">
       <div class="header-content">
         <div class="header-content-inner">
-          <!-- <h2 id="homeHeading">Perbandingan Analisis Sentimen Harga Gas LPG dengan Tingkat Inflasi</h1> -->
+          <!-- <h2 id="homeHeading">Perbandingan Analisis Persepsi Harga Gas LPG dengan Tingkat Inflasi</h1> -->
           <div class="firstvis-wrapper">
-              <h4>Perbandingan Analisis Sentimen Harga Gas LPG dengan Tingkat Inflasi</h4>
-              <p>Visualisasi perbandingan hasil analisis sentimen terkait harga gas LPG dari perbincangan publik via Twitter dengan fluktuasi inflasi di Indonesia</p>
-              <p style="font-size:80%">R = 0.493 - Correlation of Determination = 0.2394</p>
-              <div id="firstvis" style="height: 60vh; min-width: 310px;"></div>
+              <h4 style="font-size: 1em;">Perbandingan Analisis Persepsi Harga Gas LPG dengan Tingkat Inflasi</h4>
+              <p style="font-size: 85%;margin-bottom:20px;">Visualisasi perbandingan hasil analisis sentimen terkait harga gas LPG dari perbincangan publik via Twitter dengan fluktuasi inflasi di Indonesia</p>
+              <p style="font-size:70%;margin-bottom:25px;">R = 0.493 - Correlation of Determination = 0.2394</p>
+              <div id="firstvis" style="height: 60vh; min-width: 310px; width: 80%; margin: auto;"></div>
           </div>
           <div class="secondvis-wrapper" style="display:none;">
-              <h4>Perbandingan Volume Perbincangan Sektor Bahan Pangan dengan Tingkat Inflasi</h4>
-              <p>Visualisasi perbandingan hasil analisis volume perbincangan beberapa komoditi sektor bahan pangan dengan fluktuasi inflasi di Indonesia</p>
-              <p style="font-size:80%">Telur: 0.340, Daging: 0.434, LPG: 0.510, Beras: 0.561, Gabungan: 0.730</p>
-              <div id="secondvis" style="height: 60vh; min-width: 310px"></div>
+              <h4 style="font-size: 1em;">Perbandingan Volume Perbincangan Sektor Bahan Pangan dengan Tingkat Inflasi</h4>
+              <p style="font-size: 85%;margin-bottom:20px;">Visualisasi perbandingan hasil analisis volume perbincangan beberapa komoditi sektor bahan pangan dengan fluktuasi inflasi di Indonesia</p>
+              <p style="font-size:70%;margin-bottom:25px;">Telur: 0.340, Daging: 0.434, LPG: 0.510, Beras: 0.561, Gabungan: 0.730</p>
+              <div id="secondvis" style="height: 60vh; min-width: 310px; width: 80%; margin: auto;"></div>
           </div>
         </div>
       </div>
@@ -172,7 +172,7 @@
       <div class="container">
         <div class="row" id="allbox">
           <div class="col-lg-10 mx-auto text-center">
-            <p class="text-faded">Analisis <span id="box-title">Sentimen harga gas LPG</span> dan Tingkat Inflasi per Bulan</p>
+            <p class="text-faded">Analisis <span id="box-title">Persepsi harga gas LPG</span> dan Tingkat Inflasi per Bulan</p>
             <div class="buttonyear active" id="y2017">2017</div>
             <div class="buttonyear" id="y2016">2016</div>
             <div class="buttonyear" id="y2015">2015</div>
@@ -201,7 +201,7 @@
                 </td>
               </tr>
               <tr class="firstvis-wrapper">
-                <td style="color: #82ca27">Sentimen Baik</td>
+                <td style="color: #82ca27">Persepsi Baik</td>
                 <td class="thvalue" id="m0_4">545</td>
                 <td style="padding-left: 10px;">
                     <div class="info" id="m0_5">
@@ -211,7 +211,7 @@
                 </td>
               </tr>
               <tr class="firstvis-wrapper">
-                <td style="color: #26c3ca">Sentimen Netral</td>
+                <td style="color: #26c3ca">Persepsi Netral</td>
                 <td class="thvalue" id="m0_6">545</td>
                 <td style="padding-left: 10px;">
                     <div class="info" id="m0_7">
@@ -221,7 +221,7 @@
                 </td>
               </tr>
               <tr class="firstvis-wrapper">
-                <td style="color: #ff7272">Sentimen Buruk</td>
+                <td style="color: #ff7272">Persepsi Buruk</td>
                 <td class="thvalue" id="m0_8">545</td>
                 <td style="padding-left: 10px;">
                     <div class="info" id="m0_9">
@@ -231,7 +231,7 @@
                 </td>
               </tr>
               <tr class="firstvis-wrapper">
-                <td style="color: #fff">Volume Sentimen</td>
+                <td style="color: #fff">Volume Persepsi</td>
                 <td class="thvalue" id="m0_10">545</td>
                 <td style="padding-left: 10px;">
                     <div class="info" id="m0_11">
@@ -479,7 +479,7 @@
                       }
                   },
                   title: {
-                      text: 'Sentimen',
+                      text: 'Persepsi',
                       style: {
                           color: Highcharts.getOptions().colors[0]
                       }
@@ -992,13 +992,13 @@
         },
         {
             type: 'areaspline',
-            name: 'Sentimen Netral',
+            name: 'Persepsi Netral',
             yAxis: 1,
             data: neutralsentimen,
         },
         {
             type: 'areaspline',
-            name: 'Sentimen Buruk',
+            name: 'Persepsi Buruk',
             yAxis: 1,
             data: negativesentimen,
         },
@@ -1140,7 +1140,7 @@
               $(' .firstvis-wrapper ').show();
               $(' .secondvis-wrapper ').hide();
 
-              $(' #box-title ').html('Sentimen harga gas LPG')
+              $(' #box-title ').html('Persepsi harga gas LPG')
           } else {
               $(' .firstvis-wrapper ').hide();
               $(' .secondvis-wrapper ').show();
