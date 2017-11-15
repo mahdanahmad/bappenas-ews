@@ -24,7 +24,6 @@
     <!-- Custom styles for this template -->
     <link href="<?PHP echo base_url()?>assets/lib/design/css/creative.css" rel="stylesheet">
 
-
     <style type="text/css">
     .nopadding{
       padding: 0px;
@@ -172,7 +171,7 @@
       <div class="container">
         <div class="row" id="allbox">
           <div class="col-lg-10 mx-auto text-center">
-            <p class="text-faded">Analisis <span id="box-title">Persepsi harga gas LPG</span> dan Tingkat Inflasi per Bulan</p>
+            <p class="text-faded">Analisis <span id="box-title">Persepsi Harga Gas LPG</span> dan Tingkat Inflasi per Bulan</p>
             <div class="buttonyear active" id="y2017">2017</div>
             <div class="buttonyear" id="y2016">2016</div>
             <div class="buttonyear" id="y2015">2015</div>
@@ -181,7 +180,15 @@
       </div>
     </section>
 
-
+	<section id="map-wrapper" class="bg-primary">
+		<p class="text-faded">Persebaran Post Terkait <span id="map-title">Gas LPG</span> per Provinsi</p>
+		<div id="map-container" class="container">
+			<div id="map-tooltip" class="hidden tooltips">
+				<div id="map-tooltip-prov"></div>
+				<div>Total Post: <span id="map-tooltip-value">0</span></div>
+			</div>
+		</div>
+	</section>
 
 
     <!-- templating -->
@@ -333,13 +340,16 @@
 
     <!-- VISUAL GRAPH -->
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    <!-- <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.18/c3.min.js"></script>
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.18/c3.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.18/c3.min.css"> -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/4.11.0/d3.min.js"></script>
     <script src="<?PHP echo base_url()?>assets/lib/highchart/highstock.js"></script>
     <script src="<?PHP echo base_url()?>assets/lib/highchart/exporting.js"></script>
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/topojson/3.0.2/topojson.min.js"></script>
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.min.js"></script>
 
     <style type="text/css">
      .highcharts-button-box{
@@ -370,6 +380,29 @@
      .highcharts-scrollbar-track{
       fill: transparent !important;
      }
+
+	 #map-wrapper { padding-top: 0px; }
+	 #map-wrapper p { text-align: center; margin-bottom: 0px; }
+	 #map-wrapper .tooltips {
+		 position: absolute; width: 150px; text-align: center; background-color: rgba(0,0,0,.6); line-height: 20px; border-radius: 8px; font-size: 12px; padding: 10px; color: white;
+	 }
+	 #map-wrapper .tooltips:after {
+		 position: absolute; left: 50%; height: 0; width: 0; border: solid transparent;
+		 content: " "; pointer-events: none;
+		 border-width: 6px; margin-left: -6px; z-index: 1000;
+	 }
+	 #map-wrapper #map-container { position: relative; }
+	 #map-wrapper #map-container #map-tooltip.hidden { display: none; }
+	 #map-wrapper #map-container #map-tooltip #map-tooltip-prov { margin: 0px 10px; }
+	 #map-wrapper #map-container svg .province { cursor	: pointer; }
+	 #map-wrapper #map-container svg .province-border { fill: none; stroke: #474c4f; stroke-linejoin: round; stroke-width: 1px; }
+	 #map-wrapper #map-container svg .province.color-0 { fill: #fff7a8; }
+	 #map-wrapper #map-container svg .province.color-1 { fill: #dcd99f; }
+	 #map-wrapper #map-container svg .province.color-2 { fill: #a1a68d; }
+	 #map-wrapper #map-container svg .province.color-3 { fill: #8a9287; }
+	 #map-wrapper #map-container svg .province.color-4 { fill: #7a8482; }
+	 #map-wrapper #map-container svg .province.color-5 { fill: black; }
+
     </style>
     <script type="text/javascript">
 
@@ -941,10 +974,6 @@
 
       }
 
-      function drawanotherbox(data) {
-
-      }
-
       d3.csv('<?PHP echo base_url()?>assets/data/real.csv',function(data){
         //console.log(data);
         var inti = [];
@@ -1130,8 +1159,6 @@
 
         createChart();
         drawabox(data);
-        drawanotherbox(data);
-
 
       })
 
@@ -1140,20 +1167,130 @@
               $(' .firstvis-wrapper ').show();
               $(' .secondvis-wrapper ').hide();
 
-              $(' #box-title ').html('Persepsi harga gas LPG')
+			  redrawMap(0);
+
+              $(' #box-title ').html('Persepsi Harga Gas LPG')
+              $(' #map-title ').html('Gas LPG')
           } else {
               $(' .firstvis-wrapper ').hide();
               $(' .secondvis-wrapper ').show();
 
+			  redrawMap(1);
+
               $(' #box-title ').html('Perbincangan Komoditi Bahan Pangan')
+			  $(' #map-title ').html('Komoditi Bahan Pangan')
           }
 
           $(' ul.navbar-nav > li ').removeClass('active');
           $( this ).addClass('active');
       })
 
+		let canvasWidth		= $('#map-container').width();
+		let canvasHeight	= canvasWidth / 2;
 
-    </script>
+		$('#map-container').height(canvasHeight);
+
+		let margin 			= { top: 0, right: 0, bottom: 0, left: 0 };
+		let width			= canvasWidth - margin.right - margin.left;
+		let height			= canvasHeight - margin.top - margin.bottom;
+
+		let svg = d3.select("#map-container").append("svg")
+	    	.attr("width", width)
+	        .attr("height", height);
+
+		var map_data	= [];
+		d3.csv('<?PHP echo base_url()?>assets/data/statedist.csv', function(err, raw) {
+			if (err) return console.error(err);
+			map_data	= _.reduce(raw, (result, o, key) => {
+				(result[0] || (result[0] = [])).push({ name: o.state, value: parseInt(o.lpg) });
+				(result[1] || (result[1] = [])).push({ name: o.state, value: parseInt(o.komoditas) });
+
+				return result;
+			}, []);
+		});
+
+		d3.json('<?PHP echo base_url()?>assets/data/indonesia.json', function(err, idn) {
+			if (err) return console.error(err);
+
+			let states	= topojson.feature(idn, idn.objects.map);
+			let projection = d3.geoEquirectangular()
+	            .scale(width + 225)
+	            .rotate([-120, 0])
+	            .translate([(width / 2) + 55, (height / 2) - 50]);
+			let path = d3.geoPath().projection(projection);
+
+			svg.append("path")
+	            .datum(states)
+	            .attr("d", path);
+
+			svg.selectAll(".state")
+	            .data(states.features)
+	            .enter().append("path")
+	            .attr("id", (o) => (_.snakeCase(o.properties.nm_provinsi)))
+	            .attr("class", (o) => ("province color-5"))
+	            .attr("d", path)
+				.on("mouseover", function(o) {
+					let mouse = d3.mouse(svg.node()).map( (o) => (parseInt(o)));
+
+					let xPosition	= mouse[0] + 10;
+					let yPosition	= mouse[1] + 10;
+
+					let tooltip		= d3.select("#map-tooltip");
+
+					tooltip
+						.style("left", xPosition + "px")
+						.style("top", yPosition + "px");
+
+					tooltip
+						.select("#map-tooltip-prov")
+						.text(o.properties.nm_provinsi);
+
+					d3.select("#map-tooltip").classed("hidden", false);
+
+				})
+				.on("mouseout", () => { d3.select("#map-tooltip").classed("hidden", true); });
+
+	        svg.append("path")
+	            .datum(topojson.mesh(idn, idn.objects.map, (a, b) => (a !== b)))
+	            .attr("d", path)
+	            .attr("class", "province-border");
+
+			redrawMap(0);
+		});
+
+		function redrawMap(state) {
+			$(' .province ').removeClass((idx, className) => ((className.match (/(^|\s)color-\S+/g) || []).join(' ')) );
+
+			let data	= map_data[state] || [];
+
+			if (!_.isEmpty(data)) {
+				const minData		= _.chain(data).minBy('value').get('value', null).value();
+				const maxData		= _.chain(data).maxBy('value').get('value', null).value();
+
+				if (!_.isNil(minData) && !_.isNil(maxData)) {
+					const range			= _.ceil((maxData - minData) / 3);
+					const fracture		= _.times(3, (i) => (_.ceil(maxData) - ((i + 1) * range)))
+					const mappedNilai	= _.chain(data).keyBy((o) => (_.snakeCase(o.name))).mapValues('value').value();
+
+					_.forEach(data, (o) => { $('path#' + _.snakeCase(o.name)).addClass(checkProvRange(o.value)); });
+
+					function checkProvRange(value) {
+						let className	= "";
+						_.forEach(fracture, (o, i) => {
+							if (value >= o && _.isEmpty(className)) { className = 'color-' + (i); }
+						});
+
+						return !_.isEmpty(className) ? className : 'color-5';
+					}
+					$('.province').mouseover(function() { $(' #map-tooltip-value ').text(mappedNilai[$(this).attr('id')] || 0); });
+				} else {
+					$('.province').mouseover(function() { $(' #map-tooltip-value ').text(0); });
+				}
+			} else {
+				$(' .province ').addClass('color-5');
+			}
+		}
+	</script>
 
   </body>
 
